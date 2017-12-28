@@ -1,0 +1,70 @@
+http request部分报文结构
+第一部分是请求行，第二部分是请求头，第三部分是请求实体
+请求方法 相对路径 HTTP/版本换行
+请求头:Value换行
+换行
+请求BODY
+POST /a/b/c HTTP/1.1\r\n
+Host: www.a.c\r\n
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding:gzip, deflate, br
+Accept-Language:zh-CN,zh;q=0.9
+Connection:keep-alive
+Cache-Control:max-age=0
+
+Referer
+
+
+
+http response部分报文结构
+http/版本 状态 消息换行
+响应头换行
+换行
+响应BODY
+
+HTTP/1.1 200 OK\r\n
+Server: Tengine\r\n
+Content-Type: application/json\r\n
+Connection:keep-alive\r\n
+Date:Thu, 28 Dec 2017 01:47:37 GMT\r\n
+Transfer-Encoding:chunked\r\n
+
+
+
+tcp 报文
+源端口(16) 目的端口(16)
+序号(32) 
+确认序号(32) 
+首部长度(4) 保留位(6) URG(1) ACK(1) PSH(1) RST(1) SYN(1) FIN(1) 窗口大小(16) 
+校验和(16)紧急指针(16)
+选项  --- 选项类型(1)  选项总长度(1) 选项内容
+数据
+
+
+udp 报文
+源端口(16) 目的端口(16)
+UDP长度:首部和数据(16) UDP校验和:UDP首部和数据部分的正确性(16)
+数据
+
+
+IPv4  报文
+版本(4) 首部长度(4) 服务类型(8) 总长度(16)
+标识(16)  标志(3)  片偏移(13)
+生存时间(8)  协议(8) 首部校验和(16)
+源地址(32)
+目的地址(32)
+长度可变的可选字段  填充
+数据
+
+
+
+服务类型(8)
+优先级(3) D T R C 未用
+
+
+IPv6   报文 (40字 节)
+版本(4) 服务类型:流量类型(8) 流标签(20)
+净荷长度(16) 下一个头部(8) 跳数限制(8)
+源IPv6地址(128)
+目的IPv6地址(128
